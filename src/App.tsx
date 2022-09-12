@@ -3,6 +3,8 @@ import { Header } from "./components/Header";
 import { GlobalStyle } from "./styles/global";
 import Modal from 'react-modal';
 import { useState } from "react";
+import { NewTransModal } from "./components/NewTransModal";
+import { TransactionsProvider } from "./hooks/UseTransactions";
 
 Modal.setAppElement('#root');
 
@@ -18,16 +20,11 @@ export function App() {
     }
 
   return (
-    <>
+    <TransactionsProvider>
       <Header onOpenNewTransModal={handleOpenNewTransModal} />
       <Dashboard />
-
-      <Modal isOpen={isNewTransModalOpen} onRequestClose={handleCloseNewTransModal}>
-          <h2>Cadastrar</h2>
-      </Modal>
-
+      <NewTransModal isOpen={isNewTransModalOpen} onRequestClose={handleCloseNewTransModal} />
       <GlobalStyle />
-    </>
+    </TransactionsProvider>
   );
 }
-
